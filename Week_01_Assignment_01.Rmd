@@ -1,0 +1,25 @@
+---
+title: "Week_01_Assignment_01"
+author: "Uğur Aşkar"
+date: "08 10 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Assignment 1: RMarkdown Homework
+Uğur Aşkar
+Due 14/10/2020
+
+I graduated from Beykent University Software Engineering Department in 2017 also I completed my double major programme on Electronics and Communication Engineering in 2019. I am currently doing Business Administration/Management in Anadolu University.
+
+I am currently working at Cigna Finans ve Hayat A.Ş. Insurance Company as Business Intelligence and Data Analyst.
+My job description is creating Data Warehouse data flows and creating reports/dashboards based on business requirements.
+I am interested in Big Data and I plan to become Big Data Developer/Data Engineer.
+
+[Here is my LinkedIn profile](https://linkedin.com/in/uguraskar/)
+
+## Spark on demand with AZTK
+Since I'm interested in Big Data and Spark is one of the most common tools used in Big Data, I found this video really interesting.
+[Spark on demand with AZTK](https://www.youtube.com/watch?v=zKcL9Y83YgE)
