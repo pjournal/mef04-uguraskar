@@ -15,3 +15,5 @@ Provide link from your Progress Journal page.
 ```
 
 - [ ] Form teams of 4-5 and prepare for major projects (we will discuss in week 2):
+
+## Week #2 <small>21/10/2020</small>
