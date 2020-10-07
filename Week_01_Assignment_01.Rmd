@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## About Myself
+
 I graduated from Beykent University Software Engineering Department in 2017 also I completed my double major programme on Electronics and Communication Engineering in 2019. I am currently doing Business Administration/Management in Anadolu University.
 
 I am currently working at Cigna Finans ve Hayat A.Ş. Insurance Company as Business Intelligence and Data Analyst.
