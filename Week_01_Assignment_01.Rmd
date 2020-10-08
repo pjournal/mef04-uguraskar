@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## About Myself
+### About Myself
 
 I graduated from Beykent University Software Engineering Department in 2017 also I completed my double major programme on Electronics and Communication Engineering in 2019. I am currently doing Business Administration/Management in Anadolu University.
 
@@ -19,16 +19,11 @@ I am interested in Big Data and I plan to become Big Data Developer/Data Enginee
 
 [Here is my LinkedIn profile](https://linkedin.com/in/uguraskar/)
 
-## [Spark on demand with AZTK](https://www.youtube.com/watch?v=zKcL9Y83YgE)
-Since I'm interested in Big Data and Spark is one of the most common tools used in Big Data, I found this video really interesting.
+### [useR! 2020: PostgreSQL As A Data Science Database (P. Gasana), regular](https://youtu.be/69tVWeibs_U)
 
-Presenter talks about Azure Distributed Data Engineering Toolkit (AZTK) and It uses AZTK to manage spark clusters and makes it easier to use. It can use users already existing docker images so it is easier to move onto AZTK and It uses docker containers to run spark clusters.
+Descriptions will be added later.
 
-Even tough video is published at 2018 technology relatively new to me, it might be because insurance companies focuses on security and being robust more important than fast/easy to use systems.
-
-
-
-## [Using R to Detect Outliers and Anomalies in Clinical Trial Data (Steven Schwager)](https://www.youtube.com/watch?v=vDXjVtuyrJA)
+### [Using R to Detect Outliers and Anomalies in Clinical Trial Data (Steven Schwager)](https://www.youtube.com/watch?v=vDXjVtuyrJA)
 
 This video tells us outliers and anomalies in data often makes clinical trials slow down or even make trials fail. 
 
@@ -37,3 +32,13 @@ As a result they are theorizing what should we use to find those outliers includ
 They aim to cluster patients, sites, studies, variables and compare data quality scores, this will generate higher data quality, reduced monitoring effort(also probably less maintanence) and early identification of outlier datas that could compromise trial's success.
 
 Presenter explains variable pairs and how huge it can be to manually checking them so automating it is a must.
+
+### [Teach yourself deep-learning with R](https://www.youtube.com/watch?v=y8ED45Yx0rw)
+Descriptions will be added later.
+
+### [Spark on demand with AZTK](https://www.youtube.com/watch?v=zKcL9Y83YgE)
+Since I'm interested in Big Data and Spark is one of the most common tools used in Big Data, I found this video really interesting.
+
+Presenter talks about Azure Distributed Data Engineering Toolkit (AZTK) and It uses AZTK to manage spark clusters and makes it easier to use. It can use users already existing docker images so it is easier to move onto AZTK and It uses docker containers to run spark clusters.
+
+Even tough video is published at 2018 technology relatively new to me, it might be because insurance companies focuses on security and being robust more important than fast/easy to use systems.
