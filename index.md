@@ -1,9 +1,9 @@
-Here you can see my assignments and my notes.
+>  Here you can see my assignments and my notes.
 
-## Week #1 <small>07/10/2020</small>
+### Week #1 <small>07/10/2020</small>
 - [x] [Assignment 1: RMarkdown Homework](Week_01_Assignment_01.html): 
 
-<small>Deadline is: 21/10/2020</small>
+:clock1: <small>Deadline: 21/10/2020</small>
 
 ```
 Prepare an RMarkdown document. 
@@ -16,4 +16,4 @@ Provide link from your Progress Journal page.
 
 - [ ] Form teams of 4-5 and prepare for major projects (we will discuss in week 2):
 
-## Week #2 <small>21/10/2020</small>
+### Week #2 <small>21/10/2020</small>
