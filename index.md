@@ -3,7 +3,7 @@
 ### Week #1 <small>07/10/2020</small>
 - [x] [Assignment 1: RMarkdown Homework](Week_01_Assignment_01.html): 
 
-:clock1: <small>Deadline: 21/10/2020</small>
+<small>Deadline: 21/10/2020</small>
 
 ```
 Prepare an RMarkdown document. 
