@@ -39,8 +39,23 @@ They aim to cluster patients, sites, studies, variables and compare data quality
 
 Presenter explains variable pairs and how huge it can be to manually checking them so automating it is a must. Visualizing these datasets also helps us to detect outliers aswell. Identical data is susceptible as much as outliers, if we find continious identical data maybe we should check our data source. Some data sources can be fabricated and we shouldn't completely trust our sources. 
 
-### [Teach yourself deep-learning with R](https://www.youtube.com/watch?v=y8ED45Yx0rw)
-Descriptions will be added later.
+### [Build Your Own Universe: Scale High-quality Research Data Provisioning with R Packages](https://www.youtube.com/watch?v=lm0QYr1C2Sw)
+In this video presenter starts with growth of data in an organization. 
+At the start hospitals needed dashboards, they requested data for research, needed to know how the data got there or know where to pull that specific data from and they needed someone for these each specific task. 
+
+Teams specialized in each of these tasks:
+
+* Dashboards > Business Intelligence
+
+* Getting data > Collaborative Data Services
+
+* Knowing how the data got there > Data Quality
+
+* Where to pull that specific data > Data Engineering
+
+In the second part of the video they talk about how SQL queries hard to read or document so they created easier to read(and use) library, and library automatically load some packages they commonly use, their connections and simplifies syntax for their needs. This not just makes it less repetitive or simpler. It also makes it easier to read and understand in human language and makes it less prone to errors.
+
+Since this package is in R, you can also get the advantages of R such as writing documentation in your analysis, use github to ask questions or version control your code.
 
 ### [Spark on demand with AZTK](https://www.youtube.com/watch?v=zKcL9Y83YgE)
 Since I'm interested in Big Data and Spark is one of the most common tools used in Big Data, I found this video really interesting.
