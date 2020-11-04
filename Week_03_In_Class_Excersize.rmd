@@ -33,7 +33,7 @@ clean_df = row_id_df %>%
   transmute(TARIH = as.yearmon(Tarih), TOPLAM_SATIS = as.numeric(TP.AKONUTSAT1.T40), IPOTEK_SATIS = as.numeric(TP.AKONUTSAT1.T40), ILK_EL_SATIS = TP.AKONUTSAT3.T40, IKINCI_EL_SATIS = TP.AKONUTSAT4.T40, YABANCI_SATIS = TP.DISKONSAT.ISTANBUL, YENI_KONUT_FIYAT_ENDEKS = TP.HEDONIKYKFE.IST, TR10 = TP.HKFE02, KONUT_BIRIM_FIYAT = TP.TCBF02.ISTANBUL)
 print(clean_df,n=5)
 ```
- * Adding row numbers to clean data which we will be using it to ignore descriptions from excel.
+ * Adding row numbers to clean data which we will be using it to ignore descriptions from excel, I preferred this method compared to n_max because If I added a limit where the descriptions were manually we could ignore new values. This one will find where descriptions are automatically.
  * Adding proper column names for readability and dropping rows which contains null values.
  * Converting data types as well because we can't divide string values.
  
@@ -53,3 +53,5 @@ ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
   theme_minimal() + 
   labs(x = 'Housing Sales Period', y = 'Number of houses sold', color = "Acquired By", title = "First Hand vs Second Hand")
 ```
+
+ Here we can see that around late 2018 and early 2019 second hand market increased significantly, this might be due to decreased purchasing power compared to pre-2019. Since second hand houses are cheaper than first hand houses.
