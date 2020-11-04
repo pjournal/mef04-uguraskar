@@ -65,3 +65,20 @@ ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
 ```
 
   While this graph doesn't show huge analysis opportunity it supports our first estimate, since purchasing power is going down in the same dates we can see that Non-Turkish buyers are significantly increased.
+  
+## Conclusion 
+
+We can see that since late-2018's there is an economic crisis going on in Turkey. This pushes people to buy second-hand properties. 
+This also encourages foreigners to spend money here because it's cheaper.
+
+## Sources
+* https://www.datanovia.com/en/blog/how-to-create-a-ggplot-with-multiple-lines/
+* https://stackoverflow.com/questions/27082601/ggplot2-line-chart-gives-geom-path-each-group-consist-of-only-one-observation
+* https://stackoverflow.com/questions/6242955/converting-year-and-month-yyyy-mm-format-to-a-date
+* https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/
+* https://github.com/yihui/rmarkdown-cookbook/issues/12
+
+Analytical Sources:
+
+* https://www.neoldu.com/konut-satis-2019-tuik-istatistik-rapor-rakam-38482h.htm
+* https://tr.wikipedia.org/wiki/2018-20_T%C3%BCrkiye_d%C3%B6viz_ve_bor%C3%A7_krizi
