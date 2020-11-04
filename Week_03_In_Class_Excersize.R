@@ -1,7 +1,8 @@
-library(readxl)
-library(ggplot2)
-#library(tidyverse)
-#library(lubridate)
+#library(readxl)
+#library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(zoo)
 
 raw_df = read_xlsx("C:\\data\\EVDS_istanbul_property_data\\EVDS_istanbul_property_data.xlsx")
 #raw_df
@@ -14,7 +15,7 @@ clean_df = row_id_df %>%
   drop_na() %>%
   filter(id < minimum_description_row_id) %>% 
   dplyr::rename_all(funs(make.names(.))) %>% 
-  transmute(TARIH = Tarih, TOPLAM_SATIS = as.numeric(TP.AKONUTSAT1.T40), IPOTEK_SATIS = as.numeric(TP.AKONUTSAT1.T40), ILK_EL_SATIS = TP.AKONUTSAT3.T40, IKINCI_EL_SATIS = TP.AKONUTSAT4.T40, YABANCI_SATIS = TP.DISKONSAT.ISTANBUL, YENI_KONUT_FIYAT_ENDEKS = TP.HEDONIKYKFE.IST, TR10 = TP.HKFE02, KONUT_BIRIM_FIYAT = TP.TCBF02.ISTANBUL)
+  transmute(TARIH = as.yearmon(Tarih), TOPLAM_SATIS = as.numeric(TP.AKONUTSAT1.T40), IPOTEK_SATIS = as.numeric(TP.AKONUTSAT1.T40), ILK_EL_SATIS = TP.AKONUTSAT3.T40, IKINCI_EL_SATIS = TP.AKONUTSAT4.T40, YABANCI_SATIS = TP.DISKONSAT.ISTANBUL, YENI_KONUT_FIYAT_ENDEKS = TP.HEDONIKYKFE.IST, TR10 = TP.HKFE02, KONUT_BIRIM_FIYAT = TP.TCBF02.ISTANBUL)
 #https://stackoverflow.com/questions/10688137/how-to-fix-spaces-in-column-names-of-a-data-frame-remove-spaces-inject-dots
 #not_nulls_df = clean_df %>% drop_na()
 
@@ -30,7 +31,7 @@ analytical_df
 
 #str(not_nulls_df)
 
-ggplot(analytical_df, aes(x=TARIH))+
-  geom_line(aes(y = ILK_EL_SATIS_YUZDE), color = "red") +
-  geom_line(aes(y = IKINCI_EL_SATIS_YUZDE), color = "green", linetype = "twodash")
+ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1))+
+  geom_line(aes(y = ILK_EL_ORAN*100), color = "red") +
+  geom_line(aes(y = IKINCI_EL_ORAN*100), color = "green", linetype = "twodash")
 #https://www.datanovia.com/en/blog/how-to-create-a-ggplot-with-multiple-lines/

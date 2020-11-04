@@ -1,0 +1,55 @@
+---
+title: "Week 03 - In Class Excersize"
+author: "Uğur Aşkar"
+date: "2020-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(zoo)
+library(readxl)
+```
+
+## Preparing data for analysis
+
+```{r}
+raw_df = read_xlsx("C:\\data\\EVDS_istanbul_property_data\\EVDS_istanbul_property_data.xlsx")
+print(raw_df,n=5)
+```
+Pulling data from our file system with read_xlsx function.
+
+```{r, warning=FALSE}
+row_id_df = raw_df %>% transmute(id = row_number(), raw_df)
+description_row_id = row_id_df %>% filter(is.na(Tarih)) %>% summarise(description_row_id = min(id))
+minimum_description_row_id = description_row_id$description_row_id[1]
+clean_df = row_id_df %>%
+  filter(id < minimum_description_row_id) %>%
+  drop_na() %>%
+  filter(id < minimum_description_row_id) %>% 
+  dplyr::rename_all(funs(make.names(.))) %>% 
+  transmute(TARIH = as.yearmon(Tarih), TOPLAM_SATIS = as.numeric(TP.AKONUTSAT1.T40), IPOTEK_SATIS = as.numeric(TP.AKONUTSAT1.T40), ILK_EL_SATIS = TP.AKONUTSAT3.T40, IKINCI_EL_SATIS = TP.AKONUTSAT4.T40, YABANCI_SATIS = TP.DISKONSAT.ISTANBUL, YENI_KONUT_FIYAT_ENDEKS = TP.HEDONIKYKFE.IST, TR10 = TP.HKFE02, KONUT_BIRIM_FIYAT = TP.TCBF02.ISTANBUL)
+print(clean_df,n=5)
+```
+ * Adding row numbers to clean data which we will be using it to ignore descriptions from excel.
+ * Adding proper column names for readability and dropping rows which contains null values.
+ * Converting data types as well because we can't divide string values.
+ 
+```{r}
+analytical_df = clean_df %>% 
+  transmute(TARIH, ILK_EL_SATIS, ILK_EL_ORAN = ((ILK_EL_SATIS / TOPLAM_SATIS)*100), IKINCI_EL_SATIS, IKINCI_EL_ORAN = ((IKINCI_EL_SATIS / TOPLAM_SATIS)*100), YABANCI_SATIS, YABANCI_SATIS_ORAN = ((YABANCI_SATIS / TOPLAM_SATIS)*100), TC_SATIS = TOPLAM_SATIS - YABANCI_SATIS, TC_SATIS_ORAN = ((TOPLAM_SATIS - YABANCI_SATIS)/TOPLAM_SATIS)*100)
+print(analytical_df,n=5)
+```
+Calculating percentage and adding new columns for analysis.
+
+## Visualizing the data
+
+```{r}
+ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
+  geom_line(aes(y = ILK_EL_ORAN, color = "First Hand") , size = 1) +
+  geom_line(aes(y = IKINCI_EL_ORAN, color = "Second Hand"), size = 1) +
+  theme_minimal() + 
+  labs(x = 'Housing Sales Period', y = 'Number of houses sold', color = "Acquired By", title = "First Hand vs Second Hand")
+```

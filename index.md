@@ -14,6 +14,9 @@ Find 3 R posts relevant to your interests and describe them. Get the html output
 Provide link from your Progress Journal page. 
 ```
 
-- [ ] Form teams of 4-5 and prepare for major projects (we will discuss in week 2):
+- [x] Form teams of 4-5 and prepare for major projects (we will discuss in week 2):
 
-### Week #2 <small>21/10/2020</small>
+### Week #3 <small>04/11/2020</small>
+- [x] [In-Class Exercise (Bonus)](Week_03_In_Class_Excersize.html)
+
+<small>Deadline: 04/11/2020 21:30</small>
