@@ -54,7 +54,7 @@ ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
   labs(x = 'Housing Sales Period', y = 'Number of houses sold', color = "Acquired By", title = "First Hand vs Second Hand", subtitle = "Sales numbers between January 2013 and August 2020")
 ```
 
- Here we can see that around late 2018 and early 2019 second hand market increased significantly, this might be due to decreased purchasing power compared to pre-2019. Since second hand houses are cheaper than first hand houses.
+  Here we can see that around late 2018 and early 2019 second hand market increased significantly, this might be due to decreased purchasing power compared to pre-2019. Since second hand houses are cheaper than first hand houses.
  
 ```{r}
 ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
@@ -63,4 +63,5 @@ ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
   theme_minimal() + 
   labs(x = 'Housing Sales Period', y = 'Number of houses sold', color = "Acquired By", title = "Turkish vs Non-Turkish Buyers", subtitle = "Sales numbers between January 2013 and August 2020")
 ```
-While this graph doesn't show huge analysis opportunity it supports our first estimate, since purchasing power is going down in the same dates we can see that Non-Turkish buyers are significantly increased.
+
+  While this graph doesn't show huge analysis opportunity it supports our first estimate, since purchasing power is going down in the same dates we can see that Non-Turkish buyers are significantly increased.
