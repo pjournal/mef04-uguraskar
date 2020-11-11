@@ -1,0 +1,36 @@
+---
+title: 'Week 03 - Assignment: Electricity Market Prices'
+author: "Uğur Aşkar"
+date: "2020-11-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+```
+
+## Preparing data for analysis
+
+```{r}
+raw_df = read_csv("C:\\data\\EPIAS_EXIST_MCP_SMP\\ptf-smf.csv")
+print(raw_df,n=5)
+```
+Pulling data from our file system with read_csv function.
+
+```{r, warning=FALSE}
+#row_id_df = raw_df %>% transmute(id = row_number(), raw_df)
+#description_row_id = row_id_df %>% filter(is.na(Tarih)) %>% summarise(description_row_id = min(id))
+#minimum_description_row_id = description_row_id$description_row_id[1]
+#clean_df = row_id_df %>%
+#  filter(id < minimum_description_row_id) %>%
+#  drop_na() %>%
+#  filter(id < minimum_description_row_id) %>% 
+#  dplyr::rename_all(funs(make.names(.))) %>% 
+#  transmute(TARIH = as.yearmon(Tarih), TOPLAM_SATIS = as.numeric(TP.AKONUTSAT1.T40), IPOTEK_SATIS = as.numeric(TP.AKONUTSAT1.T40), ILK_EL_SATIS = TP.AKONUTSAT3.T40, IKINCI_EL_SATIS = TP.AKONUTSAT4.T40, YABANCI_SATIS = TP.DISKONSAT.ISTANBUL, YENI_KONUT_FIYAT_ENDEKS = TP.HEDONIKYKFE.IST, TR10 = TP.HKFE02, KONUT_BIRIM_FIYAT = TP.TCBF02.ISTANBUL)
+print(raw_df,n=5)
+clean_names = c("DATE_TIME","MARKET_TRADE_PRICE","SYSTEM_MARGINAL_PRICE","POSITIVE_IMBALANCE_PRICE","NEGATIVE_IMBALANCE_PRICE")
+clean_df = setNames(raw_df[1:5], clean_names) %>% transform(DATE_TIME = as.POSIXct(DATE_TIME,'%d.%m.%y %H:%M'))
+print(clean_df, n=5)
+```
