@@ -381,59 +381,142 @@ summary {
 
 <div id="preparing-data-for-analysis" class="section level2">
 <h2>Preparing data for analysis</h2>
-<pre class="r"><code>raw_df = read_csv(&quot;C:\\data\\EPIAS_EXIST_MCP_SMP\\ptf-smf.csv&quot;)</code></pre>
-<pre><code>## 
-## -- Column specification --------------------------------------------------------
-## cols(
-##   Tarih = col_character(),
-##   PTF = col_number(),
-##   SMF = col_number(),
-##   `Pozitif Dengesizlik Fiyat&lt;U+663C&gt;&lt;U+3E64&gt; (TL/MWh)` = col_number(),
-##   `Negatif Dengesizlik Fiyat&lt;U+663C&gt;&lt;U+3E64&gt; (TL/MWh)` = col_number(),
-##   `SMF Y&lt;U+663C&gt;&lt;U+3E36&gt;n` = col_character()
-## )</code></pre>
-<pre class="r"><code>print(raw_df,n=5)</code></pre>
-<pre><code>## # A tibble: 720 x 6
-##   Tarih     PTF   SMF `Pozitif Dengesizlik~ `Negatif Dengesizli~ `SMF Y\xf6n`   
-##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                 &lt;dbl&gt;                &lt;dbl&gt; &lt;chr&gt;          
-## 1 01.09.~ 30239 33239                 29332                34236 &quot;? Enerji A\xe~
-## 2 01.09.~ 30025 32525                 29124                33501 &quot;? Enerji A\xe~
-## 3 01.09.~ 29264 31764                 28386                32717 &quot;? Enerji A\xe~
-## 4 01.09.~ 29000 32000                 28130                32960 &quot;? Enerji A\xe~
-## 5 01.09.~ 29000 33000                 28130                33990 &quot;? Enerji A\xe~
-## # ... with 715 more rows</code></pre>
+<pre class="r"><code>raw_df = read.csv(&quot;C:\\data\\EPIAS_EXIST_MCP_SMP\\ptf-smf.csv&quot;,header=TRUE,dec=&quot;,&quot;)
+knitr::kable(raw_df[1:5,], format=&quot;markdown&quot;, align=&#39;cc&#39;)</code></pre>
+<table>
+<colgroup>
+<col width="13%"></col>
+<col width="6%"></col>
+<col width="6%"></col>
+<col width="30%"></col>
+<col width="30%"></col>
+<col width="13%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Tarih</th>
+<th align="center">PTF</th>
+<th align="center">SMF</th>
+<th align="center">Pozitif.Dengesizlik.Fiyatı..TL.MWh.</th>
+<th align="center">Negatif.Dengesizlik.Fiyatı..TL.MWh.</th>
+<th align="center">SMF.Yön</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">01.09.20 00:00</td>
+<td align="center">302.39</td>
+<td align="center">332,39</td>
+<td align="center">293.32</td>
+<td align="center">342,36</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="even">
+<td align="center">01.09.20 01:00</td>
+<td align="center">300.25</td>
+<td align="center">325,25</td>
+<td align="center">291.24</td>
+<td align="center">335,01</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="odd">
+<td align="center">01.09.20 02:00</td>
+<td align="center">292.64</td>
+<td align="center">317,64</td>
+<td align="center">283.86</td>
+<td align="center">327,17</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="even">
+<td align="center">01.09.20 03:00</td>
+<td align="center">290.00</td>
+<td align="center">320,00</td>
+<td align="center">281.30</td>
+<td align="center">329,60</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="odd">
+<td align="center">01.09.20 04:00</td>
+<td align="center">290.00</td>
+<td align="center">330,00</td>
+<td align="center">281.30</td>
+<td align="center">339,90</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+</tbody>
+</table>
 <p>Pulling data from our file system with read_csv function.</p>
-<pre class="r"><code>#row_id_df = raw_df %&gt;% transmute(id = row_number(), raw_df)
-#description_row_id = row_id_df %&gt;% filter(is.na(Tarih)) %&gt;% summarise(description_row_id = min(id))
-#minimum_description_row_id = description_row_id$description_row_id[1]
-#clean_df = row_id_df %&gt;%
-#  filter(id &lt; minimum_description_row_id) %&gt;%
-#  drop_na() %&gt;%
-#  filter(id &lt; minimum_description_row_id) %&gt;% 
-#  dplyr::rename_all(funs(make.names(.))) %&gt;% 
-#  transmute(TARIH = as.yearmon(Tarih), TOPLAM_SATIS = as.numeric(TP.AKONUTSAT1.T40), IPOTEK_SATIS = as.numeric(TP.AKONUTSAT1.T40), ILK_EL_SATIS = TP.AKONUTSAT3.T40, IKINCI_EL_SATIS = TP.AKONUTSAT4.T40, YABANCI_SATIS = TP.DISKONSAT.ISTANBUL, YENI_KONUT_FIYAT_ENDEKS = TP.HEDONIKYKFE.IST, TR10 = TP.HKFE02, KONUT_BIRIM_FIYAT = TP.TCBF02.ISTANBUL)
-print(raw_df,n=5)</code></pre>
-<pre><code>## # A tibble: 720 x 6
-##   Tarih     PTF   SMF `Pozitif Dengesizlik~ `Negatif Dengesizli~ `SMF Y\xf6n`   
-##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;                 &lt;dbl&gt;                &lt;dbl&gt; &lt;chr&gt;          
-## 1 01.09.~ 30239 33239                 29332                34236 &quot;? Enerji A\xe~
-## 2 01.09.~ 30025 32525                 29124                33501 &quot;? Enerji A\xe~
-## 3 01.09.~ 29264 31764                 28386                32717 &quot;? Enerji A\xe~
-## 4 01.09.~ 29000 32000                 28130                32960 &quot;? Enerji A\xe~
-## 5 01.09.~ 29000 33000                 28130                33990 &quot;? Enerji A\xe~
-## # ... with 715 more rows</code></pre>
-<pre class="r"><code>clean_names = c(&quot;DATE_TIME&quot;,&quot;MARKET_TRADE_PRICE&quot;,&quot;SYSTEM_MARGINAL_PRICE&quot;,&quot;POSITIVE_IMBALANCE_PRICE&quot;,&quot;NEGATIVE_IMBALANCE_PRICE&quot;)
-clean_df = setNames(raw_df[1:5], clean_names)
-print(clean_df, n=5)</code></pre>
-<pre><code>## # A tibble: 720 x 5
-##   DATE_TIME  MARKET_TRADE_PR~ SYSTEM_MARGINAL~ POSITIVE_IMBALA~ NEGATIVE_IMBALA~
-##   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-## 1 01.09.20 ~            30239            33239            29332            34236
-## 2 01.09.20 ~            30025            32525            29124            33501
-## 3 01.09.20 ~            29264            31764            28386            32717
-## 4 01.09.20 ~            29000            32000            28130            32960
-## 5 01.09.20 ~            29000            33000            28130            33990
-## # ... with 715 more rows</code></pre>
+<pre class="r"><code>char_to_numeric = function(char_string){
+  numeric_value = as.numeric(sub(&#39;,&#39;, &#39;.&#39;,sub(&#39;.&#39;, &#39;&#39;, char_string, fixed = TRUE)))
+  return(numeric_value)
+}
+
+clean_names = c(&quot;DATE_TIME&quot;,&quot;MARKET_TRADE_PRICE&quot;,&quot;SYSTEM_MARGINAL_PRICE&quot;,&quot;POSITIVE_IMBALANCE_PRICE&quot;,&quot;NEGATIVE_IMBALANCE_PRICE&quot;,&quot;SYSTEM_MARGINAL_PRICE_COURSE&quot;)
+clean_df = setNames(raw_df, clean_names) %&gt;% transform(DATE_TIME = as.POSIXct(DATE_TIME,format=&#39;%d.%m.%y %H:%M&#39;), SYSTEM_MARGINAL_PRICE = char_to_numeric(SYSTEM_MARGINAL_PRICE), NEGATIVE_IMBALANCE_PRICE = char_to_numeric(NEGATIVE_IMBALANCE_PRICE))
+knitr::kable(clean_df[1:5,], format=&quot;markdown&quot;, align=&#39;cc&#39;)</code></pre>
+<table>
+<colgroup>
+<col width="14%"></col>
+<col width="13%"></col>
+<col width="15%"></col>
+<col width="17%"></col>
+<col width="17%"></col>
+<col width="20%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">DATE_TIME</th>
+<th align="center">MARKET_TRADE_PRICE</th>
+<th align="center">SYSTEM_MARGINAL_PRICE</th>
+<th align="center">POSITIVE_IMBALANCE_PRICE</th>
+<th align="center">NEGATIVE_IMBALANCE_PRICE</th>
+<th align="center">SYSTEM_MARGINAL_PRICE_COURSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">2020-09-01 00:00:00</td>
+<td align="center">302.39</td>
+<td align="center">332.39</td>
+<td align="center">293.32</td>
+<td align="center">342.36</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="even">
+<td align="center">2020-09-01 01:00:00</td>
+<td align="center">300.25</td>
+<td align="center">325.25</td>
+<td align="center">291.24</td>
+<td align="center">335.01</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="odd">
+<td align="center">2020-09-01 02:00:00</td>
+<td align="center">292.64</td>
+<td align="center">317.64</td>
+<td align="center">283.86</td>
+<td align="center">327.17</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="even">
+<td align="center">2020-09-01 03:00:00</td>
+<td align="center">290.00</td>
+<td align="center">320.00</td>
+<td align="center">281.30</td>
+<td align="center">329.60</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+<tr class="odd">
+<td align="center">2020-09-01 04:00:00</td>
+<td align="center">290.00</td>
+<td align="center">330.00</td>
+<td align="center">281.30</td>
+<td align="center">339.90</td>
+<td align="center">? Enerji Açığı</td>
+</tr>
+</tbody>
+</table>
+<p>Cleaned our data here also defined a function to convert our data types to numeric(instead of char) so we can analyze it further.</p>
 </div>
 
 
