@@ -16,7 +16,17 @@ Provide link from your Progress Journal page.
 
 - [x] Form teams of 4-5 and prepare for major projects (we will discuss in week 2):
 
+**Group 5: Champions**
+ 
+ - Ahmet Emin Saricaoglu
+ - Caner Ucar
+ - Mustafa Cagatay Kiyici
+ - Selcuk Acikalin
+ - Ugur Askar
+
 ### Week #3 <small>04/11/2020</small>
 - [x] [In-Class Exercise (Bonus)](Week_03_In_Class_Excersize.html)
+
+- [ ] [Assignment: Electricity Market Prices](Week_03_Assignment_Electricity_Market_Prices.html) <small>Deadline: 12/11/2020</small>
 
 <small>Deadline: 04/11/2020 21:30</small>
