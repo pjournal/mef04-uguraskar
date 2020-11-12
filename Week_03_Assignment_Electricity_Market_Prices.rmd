@@ -55,7 +55,15 @@ ggplot(analytical_df, aes(x=DATE_TIME, group=1)) +
 Here we can see that there are spiking in System Marginal Prices in 03/09/2020, 07/09/2020 and 17/09/2020 but no national anomaly detected in news search. There must be a hidden variable we can't see.
 
 ```{r}
-ggplot(analytical_df, aes(WORKING_TIME, fill= MARKET_CLEARING_PRICE)) + geom_bar(position = "dodge2") + theme_minimal()
+analytical_df %>%
+  select(WORKING_TIME, MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE) %>%
+  group_by(WORKING_TIME) %>%
+  summarize(MARKET_CLEARING_PRICE = mean(MARKET_CLEARING_PRICE), SYSTEM_MARGINAL_PRICE = mean(SYSTEM_MARGINAL_PRICE)) %>% ggplot(., aes(x="", y=SYSTEM_MARGINAL_PRICE, fill=WORKING_TIME)) +
+  geom_bar(stat="identity") +
+  coord_polar("y") + 
+  theme_minimal()
 ```
+
+Here we can see there is more electric consumption in work hours.
 
 ## Sources
