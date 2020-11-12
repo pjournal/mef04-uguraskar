@@ -39,7 +39,7 @@ working_time = function(week_day, hour){
   }
 
 
-analytical_df = clean_df[1:3] %>% transmute(DATE_TIME, HOUR = hour(DATE_TIME), WEEK_DAY = wday(DATE_TIME, label = TRUE, abbr=FALSE, locale='UK'), WORKING_TIME = working_time(wday(DATE_TIME),hour(DATE_TIME)), MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE)
+analytical_df = clean_df[1:3] %>% transmute(DATE_TIME, HOUR = hour(DATE_TIME), WEEK_DAY = wday(DATE_TIME, label = TRUE, abbr=FALSE, locale='UK', week_start = 1), WORKING_TIME = working_time(wday(DATE_TIME),hour(DATE_TIME)), MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE)
 knitr::kable(analytical_df[1:5,], format="markdown", align='cc')
 ```
 
@@ -66,6 +66,19 @@ analytical_df %>%
   scale_fill_discrete(name = "Work Hours/Free Time")
 ```
 
-Here we can see there is more electric consumption in work hours.
+EPIAS dataset indicates there is more electric consumption in work hours.
 
-## Sources
+```{r}
+analytical_df %>%
+  select(WEEK_DAY, MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE) %>%
+  group_by(WEEK_DAY) %>%
+  summarize('Market Clearing Price' = mean(MARKET_CLEARING_PRICE), 'System Marginal Price' = mean(SYSTEM_MARGINAL_PRICE)) %>% 
+  pivot_longer(.,cols=c('Market Clearing Price','System Marginal Price'),names_to='PRICE_CATEGORY',values_to='VALUE') %>%
+  ggplot(., aes(x=WEEK_DAY, y=VALUE, fill=PRICE_CATEGORY)) +
+  geom_bar(stat="identity", position = 'dodge') +
+  theme_minimal() + 
+    labs(x = 'Day of the Week', y = 'Price in TRY/MWh', title = "MCP/SMP in Days of the Week", subtitle = "Electricity market prices comparison between days of the week") +
+  scale_fill_discrete(name = "Price Type")
+```
+
+Here we can see that electrical consumption peaks at thursday and we get lowest consumption in weekends.
