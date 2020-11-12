@@ -26,8 +26,36 @@ char_to_numeric = function(char_string){
   return(numeric_value)
 }
 
-clean_names = c("DATE_TIME","MARKET_TRADE_PRICE","SYSTEM_MARGINAL_PRICE","POSITIVE_IMBALANCE_PRICE","NEGATIVE_IMBALANCE_PRICE","SYSTEM_MARGINAL_PRICE_COURSE")
+clean_names = c("DATE_TIME","MARKET_CLEARING_PRICE","SYSTEM_MARGINAL_PRICE","POSITIVE_IMBALANCE_PRICE","NEGATIVE_IMBALANCE_PRICE","SYSTEM_MARGINAL_PRICE_COURSE")
 clean_df = setNames(raw_df, clean_names) %>% transform(DATE_TIME = as.POSIXct(DATE_TIME,format='%d.%m.%y %H:%M'), SYSTEM_MARGINAL_PRICE = char_to_numeric(SYSTEM_MARGINAL_PRICE), NEGATIVE_IMBALANCE_PRICE = char_to_numeric(NEGATIVE_IMBALANCE_PRICE))
 knitr::kable(clean_df[1:5,], format="markdown", align='cc')
 ```
 Cleaned our data here also defined a function to convert our data types to numeric(instead of char) so we can analyze it further.
+
+```{r}
+working_time = function(week_day, hour){
+    isItWorkingTime = ifelse(between(week_day,2,6) & between(hour,8,18), "Working Time", "Free Time")
+    return(isItWorkingTime)
+  }
+
+
+analytical_df = clean_df[1:3] %>% transmute(DATE_TIME, HOUR = hour(DATE_TIME), WEEK_DAY = wday(DATE_TIME, label = TRUE, abbr=FALSE, locale='UK'), WORKING_TIME = working_time(wday(DATE_TIME),hour(DATE_TIME)), MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE)
+knitr::kable(analytical_df[1:5,], format="markdown", align='cc')
+```
+
+## Visualizing the data
+```{r}
+ggplot(analytical_df, aes(x=DATE_TIME, group=1)) +
+  geom_line(aes(y = MARKET_CLEARING_PRICE, color = "Market Clearing Price") , size = 1) +
+  geom_line(aes(y = SYSTEM_MARGINAL_PRICE, color = "System Marginal Price"), size = 1) +
+  theme_minimal() + 
+  labs(x = '', y = 'Price in TRY/MWh', color = "Acquired By", title = "MCP/SMP", subtitle = "Electricity market prices in September 2020")
+```
+
+Here we can see that there are spiking in System Marginal Prices in 03/09/2020, 07/09/2020 and 17/09/2020 but no national anomaly detected in news search. There must be a hidden variable we can't see.
+
+```{r}
+ggplot(analytical_df, aes(WORKING_TIME, fill= MARKET_CLEARING_PRICE)) + geom_bar(position = "dodge2") + theme_minimal()
+```
+
+## Sources
