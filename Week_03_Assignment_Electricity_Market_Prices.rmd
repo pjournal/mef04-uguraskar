@@ -58,7 +58,7 @@ Here we can see that there are spiking in System Marginal Prices in 03/09/2020, 
 analytical_df %>%
   select(WORKING_TIME, MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE) %>%
   group_by(WORKING_TIME) %>%
-  summarize(MARKET_CLEARING_PRICE = mean(MARKET_CLEARING_PRICE), SYSTEM_MARGINAL_PRICE = mean(SYSTEM_MARGINAL_PRICE)) %>% ggplot(., aes(x="", y=SYSTEM_MARGINAL_PRICE, fill=WORKING_TIME)) +
+  summarize(MARKET_CLEARING_PRICE = mean(MARKET_CLEARING_PRICE), SYSTEM_MARGINAL_PRICE = mean(SYSTEM_MARGINAL_PRICE), .groups = 'drop') %>% ggplot(., aes(x="", y=SYSTEM_MARGINAL_PRICE, fill=WORKING_TIME)) +
   geom_bar(stat="identity") +
   coord_polar("y") + 
   theme_void() + 
@@ -72,13 +72,30 @@ EPIAS dataset indicates there is more electric consumption in work hours.
 analytical_df %>%
   select(WEEK_DAY, MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE) %>%
   group_by(WEEK_DAY) %>%
-  summarize('Market Clearing Price' = mean(MARKET_CLEARING_PRICE), 'System Marginal Price' = mean(SYSTEM_MARGINAL_PRICE)) %>% 
+  summarize('Market Clearing Price' = mean(MARKET_CLEARING_PRICE), 'System Marginal Price' = mean(SYSTEM_MARGINAL_PRICE), .groups = 'drop') %>% 
   pivot_longer(.,cols=c('Market Clearing Price','System Marginal Price'),names_to='PRICE_CATEGORY',values_to='VALUE') %>%
   ggplot(., aes(x=WEEK_DAY, y=VALUE, fill=PRICE_CATEGORY)) +
   geom_bar(stat="identity", position = 'dodge') +
   theme_minimal() + 
     labs(x = 'Day of the Week', y = 'Price in TRY/MWh', title = "MCP/SMP in Days of the Week", subtitle = "Electricity market prices comparison between days of the week") +
-  scale_fill_discrete(name = "Price Type")
+  scale_fill_discrete(name = "Price Category")
 ```
 
 Here we can see that electrical consumption peaks at thursday and we get lowest consumption in weekends.
+
+```{r}
+analytical_df %>%
+  select(HOUR, MARKET_CLEARING_PRICE, SYSTEM_MARGINAL_PRICE) %>%
+  group_by(HOUR) %>%
+  summarize('Market Clearing Price' = mean(MARKET_CLEARING_PRICE), 'System Marginal Price' = mean(SYSTEM_MARGINAL_PRICE), .groups = 'drop') %>%
+  pivot_longer(.,cols=c('Market Clearing Price','System Marginal Price'),names_to='PRICE_CATEGORY',values_to='VALUE') %>%
+  ggplot(., aes(x=factor(HOUR), y=VALUE, fill=PRICE_CATEGORY)) +
+  geom_bar(stat="identity", position = 'dodge') +
+  theme_minimal() + 
+    labs(x = 'Hours', y = 'Price in TRY/MWh', title = "MCP/SMP in Hours", subtitle = "Electricity market prices comparison between hours") +
+  scale_fill_discrete(name = "Price Category")
+```
+
+Here we can see that energy consumption peaks between 16:00 and 17:00 and we see it is lowest at 06:00. 
+
+I think it might be because 16:00 and 17:00 is at work hours and evening so population can use it way much, and at 06:00 it is already day and most people are not awake. 
