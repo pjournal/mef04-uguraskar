@@ -1,0 +1,13 @@
+name: Week_04_In_Class_Excersize
+title: Week_04_In_Class_Excersize
+username:
+account: uguraskar
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3259532
+bundleId: 3877008
+url: https://uguraskar.shinyapps.io/Week_04_In_Class_Excersize/
+when: 1605723393.96775
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: _config.yml|index.html|index.md|Week_01_Assignment_01.html|Week_01_Assignment_01.Rmd|Week_02_Exercises.R|Week_03_Assignment_Electricity_Market_Prices.html|Week_03_Assignment_Electricity_Market_Prices.rmd|Week_03_In_Class_Excersize.html|Week_03_In_Class_Excersize.R|Week_03_In_Class_Excersize.rmd|data/local_election_20190623_education.rds|data/rp_201801_202005_df.rds

@@ -28,3 +28,7 @@ Provide link from your Progress Journal page.
 - [x] [In-Class Exercise (Bonus)](Week_03_In_Class_Excersize.html) <small>Deadline: 04/11/2020 21:30</small>
 
 - [x] [Assignment: Electricity Market Prices](Week_03_Assignment_Electricity_Market_Prices.html) <small>Deadline: 12/11/2020</small>
+
+## Week #4 <small>18/11/2020</small>
+
+- [x] [In-Class Excersize](https://uguraskar.shinyapps.io/Week_04_In_Class_Excersize/)
