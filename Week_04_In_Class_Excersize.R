@@ -73,7 +73,7 @@ server <- function(input, output) {
     output$moviePlot <- renderPlot({
         print(input$genre)
         
-        mydf = shiny_movie_set %>% filter(year >= input$years[1], year <= input$years[2], (genre %in% input$genre | is.null(input$genre) | input$genre == "All"), votes >= input$votes)
+        mydf = shiny_movie_set %>% filter(year >= input$years[1], year <= input$years[2], (genre %in% input$genre | input$genre %in% "All"), votes >= input$votes)
         
         ggplot(mydf, aes(x=length,y=rating,color=genre)) + geom_point()
     })
