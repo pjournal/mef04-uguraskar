@@ -37,4 +37,4 @@ Provide link from your Progress Journal page.
 
 ## Week #5
 
-- [ ] [In-Class Exersize](https://uguraskar.shinyapps.io/Week_05_In_Class_Excersize/)
+- [ ] [In-Class Exersize](Week_05_In_Class_Excersize.html)
