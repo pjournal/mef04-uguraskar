@@ -16,7 +16,9 @@ Provide link from your Progress Journal page.
 
 - [x] Form teams of 4-5 and prepare for major projects (we will discuss in week 2):
 
-**Group 5: Champions**
+[Project Guidelines](https://mef-bda503.github.io/files/project_guidelines.html)
+
+**[Group 5: Champions](https://pjournal.github.io/mef04g-champions/)**
  
  - Ahmet Emin Saricaoglu
  - Caner Ucar
@@ -32,3 +34,7 @@ Provide link from your Progress Journal page.
 ## Week #4 <small>18/11/2020</small>
 
 - [x] [In-Class Excersize](https://uguraskar.shinyapps.io/Week_04_In_Class_Excersize/)
+
+## Week #5
+
+- [ ] [In-Class Exersize](https://uguraskar.shinyapps.io/Week_05_In_Class_Excersize/)
