@@ -1,0 +1,104 @@
+---
+title: "Week_05_In_Class_Excersize"
+author: "Ugur Askar"
+date: "2020-12-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+## Preparing data for analysis
+
+```{r}
+url = url("https://mef-bda503.github.io/files/atp_tennis_data_2017.RData")
+load(url)
+
+#match_and_players_df = tourney_df %>% select(tourney_id,singles_winner_player_id,doubles_winner_1_player_id,doubles_winner_2_player_id) %>% pivot_longer(cols=c(-tourney_id), names_to="match_type", values_to="player_id")
+
+#player_wins_df = match_and_players_df %>% count(player_id, sort = TRUE, name="win_count")
+
+win_df = score_df %>% 
+  transmute(player_id = winner_player_id) %>%
+  count(player_id, sort = TRUE, name = "win_count")
+
+loss_df = score_df %>%
+  transmute(player_id = loser_player_id) %>%
+  count(player_id, sort = TRUE, name = "loss_count")
+
+player_win_loss = win_df %>%
+  full_join(loss_df, by="player_id") 
+
+player_win_loss[is.na(player_win_loss)] = 0
+
+player_win_loss = player_win_loss %>%
+  mutate(total_match_count = win_count + loss_count) %>%
+  mutate(win_rate = round(win_count/total_match_count,2)) %>%
+  inner_join(player_df, by="player_id") %>%
+  select("player_id","player_slug","flag_code","win_count","loss_count","total_match_count","win_rate")
+
+clean_names = c("Player ID","Player","Country","Win Quantity","Loss Quantity","Total Matches","Win Rate")
+
+countries_win_df = score_df %>%
+  transmute(player_id = winner_player_id) %>%
+  inner_join(player_df, by="player_id") %>%
+  count(flag_code, sort = TRUE, name = "win_count")
+
+countries_loss_df = score_df %>%
+  transmute(player_id = loser_player_id) %>%
+  inner_join(player_df, by="player_id") %>%
+  count(flag_code, sort = TRUE, name = "loss_count")
+
+countries_win_loss = countries_win_df %>%
+  full_join(countries_loss_df, by="flag_code")
+
+countries_win_loss[is.na(countries_win_loss)] = 0
+
+countries_win_loss = countries_win_loss %>%
+  mutate(total_match_count = win_count + loss_count) %>%
+  mutate(win_rate = round(win_count/total_match_count,2))
+
+players_top_20_by_quantity = player_win_loss%>%top_n(.,20,win_count)
+players_top_20_by_rate = player_win_loss%>%top_n(.,20,win_rate)
+```
+Pulling data from web with url and load functions and cleaning, preparing them. We used full join because there might be players with no wins or no losses and we don't want to lose any players in our analysis.
+
+```{r, warning=FALSE}
+knitr::kable(players_top_20_by_quantity%>%setNames(., clean_names), format="markdown", align='cc')
+```
+
+Lets see top 20 players by win quantity
+
+```{r, warning=FALSE}
+knitr::kable(players_top_20_by_rate%>%setNames(., clean_names), format="markdown", align='cc')
+```
+ 
+Now we see top 20 players by win rate
+
+```{r, warning=FALSE}
+knitr::kable(countries_win_loss%>%top_n(.,20,win_rate), format="markdown", align='cc')
+```
+ 
+Top 20 countries by win rate 
+ 
+```{r, eval = FALSE}
+ggplot(analytical_df, aes(x=as.yearmon(TARIH), group=1)) +
+  geom_line(aes(y = YABANCI_SATIS_ORAN, color = "Non-TUR Sales") , size = 1) +
+  geom_line(aes(y = TC_SATIS_ORAN, color = "TUR Sales"), size = 1) +
+  theme_minimal() + 
+  labs(x = 'Housing Sales Period', y = 'Number of houses sold', color = "Acquired By", title = "Turkish vs Non-Turkish Buyers", subtitle = "Sales numbers between January 2013 and August 2020")
+```
+
+  While this graph doesn't show huge analysis opportunity it supports our first estimate, since purchasing power is going down in the same dates we can see that Non-Turkish buyers are significantly increased.
+  
+## Conclusion 
+
+We can see that since late-2018's there is an economic crisis going on in Turkey. This pushes people to buy second-hand properties. 
+This also encourages foreigners to spend money here because it's cheaper.
+
+## Sources
+* https://statisticsglobe.com/r-replace-na-with-0/
+* https://dplyr.tidyverse.org/reference/top_n.html
