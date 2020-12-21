@@ -35,6 +35,10 @@ Provide link from your Progress Journal page.
 
 - [x] [In-Class Excersize](https://uguraskar.shinyapps.io/Week_04_In_Class_Excersize/)
 
-## Week #5
+## Week #5 <small>02/12/2020</small>
 
 - [ ] [In-Class Exersize](Week_05_In_Class_Excersize.html)
+
+## Week #6 <small>16/12/2020</small>
+
+- [ ] [Assignment 3.2: Spam Data](Week_06_Assignment_Spam_Data.html) <small>Deadline: 24/12/2020 23:59</small>
