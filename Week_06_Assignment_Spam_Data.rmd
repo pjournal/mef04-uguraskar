@@ -1,5 +1,5 @@
 ---
-title: "Week_06_Assignment_Spam_Data"
+title: "Spam Data"
 author: "Uğur Aşkar"
 date: "2020-12-22"
 output: html_document
@@ -9,13 +9,42 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(knitr)
+library(rpart)
+library(rpart.plot)
 ```
 
 ## Preparing data for analysis
 
 ```{r}
 raw_df = read_csv("data/spambase.data", col_names = FALSE)
-clean_names = c("FREQ_MAKE","FREQ_ADDRESS","FREQ_ALL","FREQ_3D","FREQ_OUR","FREQ_OVER","FREQ_REMOVE","FREQ_INTERNET","FREQ_ORDER","FREQ_MAIL","FREQ_RECEIVE","FREQ_WILL","FREQ_PEOPLE","FREQ_REPORT","FREQ_ADDRESSES","FREQ_FREE","FREQ_BUSINESS","FREQ_EMAIL","FREQ_YOU","FREQ_CREDIT","FREQ_YOUR","FREQ_FONT","FREQ_000","FREQ_MONEY","FREQ_HP","FREQ_HPL","FREQ_GEORGE","FREQ_650","FREQ_LAB","FREQ_LABS","FREQ_TELNET","FREQ_857","FREQ_DATA","FREQ_415","FREQ_85","FREQ_TECHNOLOGY","FREQ_1999","FREQ_PARTS","FREQ_PM","FREQ_DIRECT","FREQ_CS","FREQ_MEETING","FREQ_ORIGINAL","FREQ_PROJECT","FREQ_RE","FREQ_EDU","FREQ_TABLE","FREQ_CONFERENCE","FREQ_;","FREQ_(","FREQ_[","FREQ_!","FREQ_$","FREQ_#","LENGTH_AVERAGE","LENGTH_LONGEST","LENGTH_TOTAL")
+clean_names = c("FREQ_MAKE","FREQ_ADDRESS","FREQ_ALL","FREQ_3D","FREQ_OUR","FREQ_OVER","FREQ_REMOVE","FREQ_INTERNET","FREQ_ORDER","FREQ_MAIL","FREQ_RECEIVE","FREQ_WILL","FREQ_PEOPLE","FREQ_REPORT","FREQ_ADDRESSES","FREQ_FREE","FREQ_BUSINESS","FREQ_EMAIL","FREQ_YOU","FREQ_CREDIT","FREQ_YOUR","FREQ_FONT","FREQ_000","FREQ_MONEY","FREQ_HP","FREQ_HPL","FREQ_GEORGE","FREQ_650","FREQ_LAB","FREQ_LABS","FREQ_TELNET","FREQ_857","FREQ_DATA","FREQ_415","FREQ_85","FREQ_TECHNOLOGY","FREQ_1999","FREQ_PARTS","FREQ_PM","FREQ_DIRECT","FREQ_CS","FREQ_MEETING","FREQ_ORIGINAL","FREQ_PROJECT","FREQ_RE","FREQ_EDU","FREQ_TABLE","FREQ_CONFERENCE","FREQ_;","FREQ_(","FREQ_[","FREQ_!","FREQ_$","FREQ_#","LENGTH_AVERAGE","LENGTH_LONGEST","LENGTH_TOTAL","IS_SPAM")
 clean_df = setNames(raw_df, clean_names)
 knitr::kable(head(clean_df, 5), format="markdown", align='cc')
 ```
+
+## Splitting dataframe for train and testing
+
+We are going to split the dataframe by 85% to train dataset and use remaining 15% to control and test our prediction rate. 
+
+```{r}
+sample_size = floor(0.85 * nrow(clean_df))
+set.seed(9999)
+
+train_index <- sample(seq_len(nrow(clean_df)), size = sample_size)
+
+train_df = clean_df[train_index, ]
+test_df = clean_df[-train_index, ]
+knitr::kable(head(test_df, 5), format="markdown", align='cc')
+```
+## Building Regression Tree
+
+```{r}
+regression_tree = rpart(IS_SPAM~., data = train_df, method='class')
+rpart.plot(regression_tree, type=3, box.palette = "Blues")
+```
+
+## Sources
+
+[How to split data into training/testing sets using sample function](https://stackoverflow.com/questions/17200114/how-to-split-data-into-training-testing-sets-using-sample-function)
+
+[Regression Tree](https://www.rdocumentation.org/packages/rpart/versions/4.1-15/topics/rpart)
