@@ -15,11 +15,11 @@ library(rpart.plot)
 
 ## Preparing data for analysis
 
-```{r}
+```{r, warning = FALSE, error = FALSE}
 raw_df = read_csv("data/spambase.data", col_names = FALSE)
 clean_names = c("FREQ_MAKE","FREQ_ADDRESS","FREQ_ALL","FREQ_3D","FREQ_OUR","FREQ_OVER","FREQ_REMOVE","FREQ_INTERNET","FREQ_ORDER","FREQ_MAIL","FREQ_RECEIVE","FREQ_WILL","FREQ_PEOPLE","FREQ_REPORT","FREQ_ADDRESSES","FREQ_FREE","FREQ_BUSINESS","FREQ_EMAIL","FREQ_YOU","FREQ_CREDIT","FREQ_YOUR","FREQ_FONT","FREQ_000","FREQ_MONEY","FREQ_HP","FREQ_HPL","FREQ_GEORGE","FREQ_650","FREQ_LAB","FREQ_LABS","FREQ_TELNET","FREQ_857","FREQ_DATA","FREQ_415","FREQ_85","FREQ_TECHNOLOGY","FREQ_1999","FREQ_PARTS","FREQ_PM","FREQ_DIRECT","FREQ_CS","FREQ_MEETING","FREQ_ORIGINAL","FREQ_PROJECT","FREQ_RE","FREQ_EDU","FREQ_TABLE","FREQ_CONFERENCE","FREQ_;","FREQ_(","FREQ_[","FREQ_!","FREQ_$","FREQ_#","LENGTH_AVERAGE","LENGTH_LONGEST","LENGTH_TOTAL","IS_SPAM")
 clean_df = setNames(raw_df, clean_names)
-knitr::kable(head(clean_df, 5), format="markdown", align='cc')
+knitr::kable(head(clean_df[c(1,2,3,4,5,54,55,56,57,58)], 5), format="markdown", align='cc')
 ```
 
 ## Splitting dataframe for train and testing
@@ -34,7 +34,7 @@ train_index <- sample(seq_len(nrow(clean_df)), size = sample_size)
 
 train_df = clean_df[train_index, ]
 test_df = clean_df[-train_index, ]
-knitr::kable(head(test_df, 5), format="markdown", align='cc')
+knitr::kable(head(test_df[c(1,2,3,4,5,54,55,56,57,58)], 5), format="markdown", align='cc')
 ```
 ## Building Regression Tree
 
