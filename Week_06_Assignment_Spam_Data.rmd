@@ -36,24 +36,24 @@ train_df = clean_df[train_index, ]
 test_df = clean_df[-train_index, ]
 knitr::kable(head(test_df[c(1,2,3,4,5,54,55,56,57,58)], 5), format="markdown", align='cc')
 ```
-## Building Regression Tree
+## Building Classification Tree
 
 ```{r}
-regression_tree = rpart(IS_SPAM~., data = train_df, method='class')
-rpart.plot(regression_tree, type=3, box.palette = "Blues")
+classification_tree = rpart(IS_SPAM~., data = train_df, method='class')
+rpart.plot(classification_tree, type=3, box.palette = "Blues")
 ```
-##CP Table of Regression Tree
+## CP Table of Classification Tree
 
-We will check CP Table of regression tree before we prune the tree. It is not necessary to prune it here since our dataset is small but It is good practice to prune it for performance optimization.
+We will check CP Table of classification tree before we prune the tree. It is not necessary to prune it here since our dataset is small but It is good practice to prune it for performance optimization.
 
 ```{r}
-reg_tree_cpt = regression_tree$cptable
-knitr::kable(reg_tree_cpt, format="markdown", align='cc')
+cls_tree_cpt = classification_tree$cptable
+knitr::kable(cls_tree_cpt, format="markdown", align='cc')
 ```
 ## Measuring our prediction rate
 
 ```{r}
-predict_df = predict(regression_tree, test_df, type = 'class')
+predict_df = predict(classification_tree, test_df, type = 'class')
 prediction_table = table(test_df$IS_SPAM, predict_df)
 
 prediction_rate = (prediction_table[1,1]+prediction_table[2,2])/sum(prediction_table)
